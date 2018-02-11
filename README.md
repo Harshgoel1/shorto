@@ -1,2 +1,2 @@
 # shorto
-A Node.JS based url shortener.
+A URL shortener powered by Node.JS, Express.JS , MongoDB.
