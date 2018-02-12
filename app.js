@@ -7,7 +7,8 @@ var base58 = require('./base58.js');
 
 var mongoose=require('mongoose');
 
-var site_name="http://localhost:3000/";
+//var site_name="http://localhost:3000";
+var site_name="https://shorto.herokuapp.com/";
 
 app.set('port', (process.env.PORT||3000));
 
