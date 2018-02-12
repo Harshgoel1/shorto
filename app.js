@@ -55,6 +55,10 @@ app.get('/:encoded_id', function(req, res){
 
 });
 
+app.get('/custom/url',function(req,res){
+	res.render('custom');
+});
+
 app.post('/create',function(req,res){
   var long_url=req.body.urlfield;
   var short_url="";

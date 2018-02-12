@@ -5,10 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shorto URL shortener</title>
-  <link rel="icon" type="image/png" href="assets/ico.png">
+  <link rel="icon" type="image/png" href="/assets/ico.png">
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link href="css/styles.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -19,23 +19,14 @@
           <span class="glyphicon glyphicon-link"></span>
           <h1>Shorto URL Shortener</h1>
           <h4>Powered by Node.JS, Express.JS and Mongodb.</h4>
-
-          <div class="row">
-
-            <div class="col-lg-12">
-              <form action="create" method="post">
-              <div class="input-group input-group-lg">
-                <input name="urlfield" type="text" class="form-control" placeholder="Paste a link...">
-                <span class="input-group-btn">
-                  <input class="btn btn-shorten" type="submit" value="SHORTEN">
-                </span>
-              </form>
-
-            </div>
-            </div>
-            <h2><a href="/custom/url" class="btn btn-shorten">Try out Custom url ?</a></h2>
-          </div>
-
+          <form action="custom/url/create" method="post">
+          <input name="urlfield" type="text" class="form-control" placeholder="Paste a link..." >
+          <input name="keyfield" type="text" class="form-control" placeholder="Enter custom code...">
+          <input class="btn btn-shorten" type="submit" value="SHORTEN">
+        </form>
+      </div>
+      <h2><a href="/" class="btn btn-shorten">Try Normal URL Shortener ?</a></h2>
+    </div>
         </div>
       </div>
     </div>
