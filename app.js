@@ -72,7 +72,7 @@ app.get('/:encoded_id', function(req, res){
 });
 
 app.get('/custom/url',function(req,res){
-	res.render('custom');
+	res.render('custom',{code:0});
 });
 
 app.post('/custom/url/create',function(req,res){
@@ -86,6 +86,7 @@ app.post('/custom/url/create',function(req,res){
 		if(result!=null)
 		{
 			console.log('custom url not available in custom db');
+			res.render('custom',{code:1});
 		}
 		else
 		{
@@ -94,6 +95,7 @@ app.post('/custom/url/create',function(req,res){
 				if(result!=null)
 				{
 					console.log('custom url not available in urls db');
+					res.render('custom',{code:1});
 				}
 				else
 				{
