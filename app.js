@@ -9,6 +9,12 @@ var mongoose=require('mongoose');
 
 var site_name="http://localhost:3000/";
 
+app.set('port', (process.env.PORT||3000));
+
+var server = app.listen(app.get('port'), function() {
+  console.log('Express server listening on port ' + server.address().port);
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
@@ -156,9 +162,4 @@ app.post('/create',function(req,res){
 		}
 	});
 
-});
-
-var server=app.listen(3000,function()
-{
-  console.log("Server started successfully on port 3000");
 });
