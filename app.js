@@ -34,30 +34,83 @@ var counterschema=mongoose.Schema({
 	counter : {type:Number}
 });
 
+var customschema=mongoose.Schema({
+	long_url : {type:String},
+  short_url : {type:String},
+  created_at: {type:Date}
+});
+
 var urls=mongoose.model('urls',urlschema);
 var counters=mongoose.model('counters',counterschema);
+var customs=mongoose.model('customs',customschema);
 
 app.get('/', function(req, res){
   res.render('index');
 });
 
 app.get('/:encoded_id', function(req, res){
-  var base58Id = req.params.encoded_id;
-  var id = base58.decode(base58Id);
+	var normalid = req.params.encoded_id;
+	customs.findOne({short_url:normalid},function(err,customs){
+		if(customs)
+		{
+			res.redirect(customs.long_url);
+		}
+		else
+		{
+			var base58Id = normalid;
+		  var id = base58.decode(base58Id);
 
-  urls.findOne({seq_no: id}, function (err, urls){
-    if (urls) {
-      res.redirect(urls.long_url);
-    } else {
-      res.render('error');
-    }
-  });
-
+		  urls.findOne({seq_no: id}, function (err, urls){
+		    if (urls) {
+		      res.redirect(urls.long_url);
+		    } else {
+		      res.render('error');
+		    }
+		  });
+		}
+	});
 });
 
 app.get('/custom/url',function(req,res){
 	res.render('custom');
 });
+
+app.post('/custom/url/create',function(req,res){
+	var long_url=req.body.urlfield;
+	var short_url=req.body.keyfield;
+	var date=new Date();
+
+	customs.findOne({'short_url':short_url},function(err,result){
+		if (err) throw err;
+
+		if(result!=null)
+		{
+			console.log('custom url not available in custom db');
+		}
+		else
+		{
+			urls.findOne({'short_url':short_url},function(err,result){
+				if (err) throw err;
+				if(result!=null)
+				{
+					console.log('custom url not available in urls db');
+				}
+				else
+				{
+					console.log('Url available');
+					var insert=customs({long_url:long_url,short_url:short_url,created_at:date}).save(function(err){
+						if (err) throw err;
+						console.log('Custom url added');
+						res.render('url',{short_url:site_name+short_url});
+					});
+				}
+			});
+		}
+
+	});
+
+});
+
 
 app.post('/create',function(req,res){
   var long_url=req.body.urlfield;
